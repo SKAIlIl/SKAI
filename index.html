@@ -11,13 +11,13 @@
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
         body { font-family: 'Montserrat', sans-serif; color: var(--text-white); background-color: #000; overflow-x: hidden; }
 
-        /* --- THANH CUỘN PHÁT SÁNG --- */
+        /* --- THANH CUỘN --- */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: rgba(0, 240, 255, 0.2); border-radius: 10px; transition: 0.5s; }
         ::-webkit-scrollbar-thumb:hover { background: var(--neon-cyan); box-shadow: 0 0 15px var(--neon-cyan); }
 
-        /* --- VIDEO NỀN (CĂN GIỮA & ZOOM 1.2) --- */
+        /* --- VIDEO NỀN ZOOM 1.2 --- */
         #bg-video {
             position: fixed; top: 50%; left: 50%;
             min-width: 100%; min-height: 100%;
@@ -34,7 +34,6 @@
             border-bottom: 1px solid var(--neon-cyan);
         }
         nav.scrolled { background-color: transparent; backdrop-filter: blur(5px); border-bottom: 1px solid transparent; }
-
         .logo { font-family: 'Orbitron'; font-size: 2rem; text-shadow: 0 0 10px var(--neon-cyan); }
         .nav-links { list-style: none; display: flex; gap: 30px; }
         .nav-links a { text-decoration: none; color: #fff; font-family: 'Orbitron'; font-size: 0.8rem; transition: 0.3s; }
@@ -55,15 +54,14 @@
         .project-card { background: rgba(0, 0, 0, 0.6); border: 1px dashed var(--neon-cyan); padding: 40px; text-align: center; border-radius: 10px; transition: 0.3s; }
         .project-card:hover { border-style: solid; box-shadow: 0 0 15px var(--neon-cyan); transform: translateY(-5px); }
 
-        /* --- BỘ ĐIỀU KHIỂN ÂM THANH --- */
+        /* AUDIO UI */
         .audio-player { position: fixed; bottom: 20px; right: 20px; background: rgba(0,0,0,0.8); padding: 10px 20px; border-radius: 30px; border: 1px solid var(--neon-cyan); display: flex; align-items: center; gap: 15px; z-index: 2000; box-shadow: 0 0 15px rgba(0, 240, 255, 0.2); }
         .play-btn { background: none; border: none; color: var(--neon-cyan); cursor: pointer; font-size: 1.2rem; transition: 0.3s; width: 30px; }
         #volume-slider { width: 80px; accent-color: var(--neon-cyan); cursor: pointer; }
 
-        /* --- SOCIAL LINKS --- */
+        /* SOCIALS */
         .social-link { display: flex; align-items: center; text-decoration: none; color: white; transition: 0.3s; font-family: 'Orbitron', sans-serif; font-weight: bold; }
         .social-link:hover { transform: scale(1.1); color: var(--neon-cyan); text-shadow: 0 0 8px var(--neon-cyan); }
-        .roblox-text { font-size: 1.1rem; letter-spacing: 1px; }
     </style>
 </head>
 <body>
@@ -95,6 +93,7 @@
     <section id="about" style="text-align: center; background: rgba(0,0,0,0.4);">
         <div class="skai-name">SKAI</div>
         <p id="quote-typewriter" style="color: var(--neon-cyan); font-family: monospace; font-size: 1.1rem; min-height: 1.1em;"></p>
+        <p id="bio-typewriter" style="color: var(--neon-yellow); font-family: monospace; font-size: 1.3rem; margin-top: 15px; min-height: 1.3em;"></p>
     </section>
 
     <section id="skills">
@@ -132,10 +131,10 @@
     </section>
 
     <section id="notification" style="background: rgba(0,0,0,0.5);">
-        <h2 style="font-family: Orbitron; margin-bottom: 30px; color: var(--neon-cyan);">THÔNG BÁO HỆ THỐNG</h2>
+        <h2 style="font-family: Orbitron; margin-bottom: 30px; color: var(--neon-cyan);">THÔNG BÁO</h2>
         <div style="border-left: 2px solid var(--neon-yellow); padding-left: 20px; margin-bottom: 30px;">
             <p style="color: var(--neon-yellow); font-family: Orbitron; font-size: 0.8rem;">[DEPLOYMENT_LOG]</p>
-            <p style="margin: 10px 0; line-height: 1.6;">Hôm nay 14/2/2026 lúc 17:00 web đã được lập "Xin Chào Mọi Người, Đây Là Một Web Nơi Mà Tôi Thông Báo Về Những Dự Định Tương Lai Của Mình Và Phần Các Bạn Đang Đọc Là Phần Thông Báo Của Web!"</p>
+            <p style="margin: 10px 0; line-height: 1.6;">Ngày 14/2/2026 lúc 17:00 Web đã được lập "Xin Chào Mọi Người, Đây Là Một Web Nơi Mà Tôi Thông Báo Về Những Dự Định Tương Lai Và Dự Án Của Mình Và Phần Các Bạn Đang Đọc Là Phần Thông Báo Của Web!"</p>
         </div>
         <div style="border-left: 2px solid var(--neon-cyan); padding-left: 20px;">
             <p style="color: var(--neon-cyan); font-family: Orbitron; font-size: 0.8rem;">[FUTURE_GOAL]</p>
@@ -148,34 +147,32 @@
             <a href="https://github.com/SKAIlIl" target="_blank" class="social-link"><i class="fab fa-github"></i></a>
             <a href="https://discord.gg/GuuuWqZ4" target="_blank" class="social-link"><i class="fab fa-discord"></i></a>
             <a href="https://www.youtube.com/channel/UCVXWU8QwqYAI1cWHehMTUpg" target="_blank" class="social-link"><i class="fab fa-youtube"></i></a>
-            <a href="https://www.roblox.com/users/1904012483/profile" target="_blank" class="social-link">
-                <span class="roblox-text">Roblox</span>
-            </a>
+            <a href="https://www.roblox.com/users/1904012483/profile" target="_blank" class="social-link">Roblox</a>
         </div>
         <p style="letter-spacing: 2px; font-size: 0.7rem; opacity: 0.6;">&copy; 2026 SKAI. ALL SYSTEMS OPERATIONAL.</p>
     </footer>
 
     <script>
-        // --- CHẶN F12 / CHUỘT PHẢI ---
+        // --- CHẶN F12 ---
         document.addEventListener('contextmenu', e => e.preventDefault());
         document.onkeydown = e => { if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) return false; }
 
-        // --- NAVBAR SCROLL ---
+        // --- NAVIGATION ---
         window.onscroll = () => {
             const nav = document.getElementById('navbar');
             window.scrollY > 50 ? nav.classList.add('scrolled') : nav.classList.remove('scrolled');
         };
 
         // --- TYPEWRITER ---
-        function type(el, words) {
+        function type(el, words, wait = 2000) {
             let txt = '', wordIdx = 0, isDeleting = false;
             function run() {
                 const current = wordIdx % words.length;
                 const fullTxt = words[current];
                 txt = isDeleting ? fullTxt.substring(0, txt.length - 1) : fullTxt.substring(0, txt.length + 1);
-                el.innerHTML = txt;
+                if(el) el.innerHTML = txt;
                 let speed = isDeleting ? 50 : 100;
-                if(!isDeleting && txt === fullTxt) { speed = 2000; isDeleting = true; }
+                if(!isDeleting && txt === fullTxt) { speed = wait; isDeleting = true; }
                 else if(isDeleting && txt === '') { isDeleting = false; wordIdx++; speed = 500; }
                 setTimeout(run, speed);
             }
@@ -183,8 +180,9 @@
         }
         type(document.getElementById('hero-typewriter'), ["Hi, I am SKAI.", "Wake up, Samurai.", "I Build AI Solutions."]);
         type(document.getElementById('quote-typewriter'), ["'Code is Poetry.'", "'Dream Big. Code Hard.'"]);
+        type(document.getElementById('bio-typewriter'), ["Tôi là SKAI, tôi thích code và bắn valorant"]);
 
-        // --- HỆ THỐNG ÂM THANH NÂNG CẤP ---
+        // --- ÂM THANH: GIẢI PHÁP TỐI ƯU ---
         const music = document.getElementById('bg-music');
         const playBtn = document.getElementById('play-pause-btn');
         const volSlider = document.getElementById('volume-slider');
@@ -192,43 +190,38 @@
 
         music.volume = volSlider.value;
 
-        // Hàm phát nhạc
-        function playMusic() {
+        // Hàm phát nhạc an toàn
+        function forcePlay() {
             music.play().then(() => {
                 playIcon.className = 'fas fa-pause';
-            }).catch(err => {
-                console.log("Auto-play vẫn bị chặn. Hãy bấm một nơi bất kỳ trên web.");
-            });
+                // Nếu đã phát thành công, gỡ bỏ tất cả các lắng nghe click thừa
+                window.removeEventListener('click', forcePlay);
+                window.removeEventListener('keydown', forcePlay);
+                window.removeEventListener('touchstart', forcePlay);
+            }).catch(e => console.log("Waiting for user interaction..."));
         }
 
-        // Bấm nút Play/Pause
+        // Bấm nút Play/Pause thủ công
         playBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             if (music.paused) {
-                playMusic();
+                music.play();
+                playIcon.className = 'fas fa-pause';
             } else {
                 music.pause();
                 playIcon.className = 'fas fa-play';
             }
         });
 
-        // Kéo thanh âm lượng
+        // Kéo thanh volume
         volSlider.addEventListener('input', (e) => {
             music.volume = e.target.value;
-            if (music.volume == 0) {
-                playIcon.className = 'fas fa-volume-mute';
-            } else if (!music.paused) {
-                playIcon.className = 'fas fa-pause';
-            }
         });
 
-        // --- MẸO "PHÁ BĂNG" AUTO-PLAY ---
-        // Nhạc sẽ bắt đầu phát ngay khi bạn click lần đầu tiên vào bất cứ đâu trên web
-        document.addEventListener('click', () => {
-            if (music.paused) {
-                playMusic();
-            }
-        }, { once: true }); // { once: true } đảm bảo nó chỉ chạy 1 lần duy nhất lúc đầu
+        // TỰ ĐỘNG MỞ KHÓA KHI CÓ BẤT KỲ TƯƠNG TÁC NÀO
+        window.addEventListener('click', forcePlay);
+        window.addEventListener('keydown', forcePlay);
+        window.addEventListener('touchstart', forcePlay);
 
     </script>
 </body>
