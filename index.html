@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SKAI | Cyberpunk Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --neon-cyan: #00F0FF;
+            --neon-yellow: #FAFF00;
+            --dark-bg: rgba(0, 0, 0, 0.85);
+            --glass-bg: rgba(0, 0, 0, 0.3);
+            --text-white: #ffffff;
+            --text-gray: #e0e0e0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-white);
+            background-color: #000;
+            overflow-x: hidden;
+            /* Ẩn thanh cuộn mặc định */
+            scrollbar-width: thin;
+            scrollbar-color: var(--neon-cyan) transparent;
+        }
+
+        /* --- TÙY CHỈNH THANH CUỘN (SCROLLBAR) --- */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 240, 255, 0.5);
+            border-radius: 10px;
+            box-shadow: 0 0 5px var(--neon-cyan);
+            transition: all 0.3s ease;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: var(--neon-cyan);
+            box-shadow: 0 0 15px var(--neon-cyan), 0 0 25px var(--neon-cyan);
+        }
+
+        /* --- VIDEO BACKGROUND (Căn giữa & Zoom 1.2) --- */
+        #bg-video {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -2;
+            object-fit: cover;
+            transform: translate(-50%, -50%) scale(1.2); /* Phóng to 1.2 lần */
+            filter: brightness(0.6) contrast(1.1);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.3);
+            z-index: -1;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.4s ease;
+            background-color: #000;
+            border-bottom: 1px solid var(--neon-cyan);
+        }
+
+        nav.scrolled {
+            background-color: transparent; 
+            padding: 15px 50px;
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid transparent;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--text-white);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--neon-cyan);
+            cursor: pointer;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-white);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--neon-yellow);
+            text-shadow: 0 0 8px var(--neon-yellow);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--neon-cyan);
+            bottom: -5px;
+            left: 0;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* --- SECTIONS GENERAL --- */
+        section {
+            min-height: 100vh;
+            padding: 100px 10%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h2.section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            border-left: 5px solid var(--neon-cyan);
+            padding-left: 20px;
+            text-transform: uppercase;
+            text-shadow: 0 0 5px var(--neon-cyan);
+        }
+
+        /* --- HERO SECTION --- */
+        #home {
+            align-items: center;
+            text-align: center;
+        }
+
+        .hero-text h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .typewriter-container {
+            display: inline-block;
+        }
+
+        .typewriter {
+            font-size: 1.5rem;
+            color: var(--neon-cyan);
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 0 5px var(--neon-cyan);
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 20px;
+            background-color: var(--neon-yellow);
+            animation: blink 1s infinite;
+            vertical-align: middle;
+            margin-left: 5px;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* --- ABOUT ME --- */
+        #about {
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .skai-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 5rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, var(--neon-cyan), #ffffff, var(--neon-yellow));
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientAnim 3s linear infinite;
+        }
+
+        @keyframes gradientAnim {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        /* --- SKILLS --- */
+        #skills {
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .skill-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card:hover {
+            border-color: var(--neon-yellow);
+            box-shadow: 0 0 15px rgba(250, 255, 0, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .skill-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            color: var(--neon-yellow);
+            margin-bottom: 10px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 5px;
+            background: #333;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+
+        .progress {
+            height: 100%;
+            background: var(--neon-cyan);
+            box-shadow: 0 0 10px var(--neon-cyan);
+            width: 0%;
+            transition: width 1.5s ease-in-out;
+        }
+
+        /* --- NOTIFICATION --- */
+        #notification {
+            background: rgba(0, 0, 0, 0.6);
+        }
+        
+        .log-entry {
+            border-left: 2px solid var(--neon-cyan);
+            padding-left: 20px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .log-entry::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            background: var(--neon-yellow);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--neon-yellow);
+        }
+
+        .date {
+            font-size: 0.8rem;
+            color: var(--neon-cyan);
+            margin-bottom: 5px;
+            display: block;
+        }
+        
+        .log-entry h3 {
+            margin-bottom: 5px;
+            color: var(--text-white);
+        }
+
+        /* --- PROJECTS --- */
+        #projects {
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .project-card {
+            background: #111;
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #333;
+            position: relative;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+        }
+
+        .project-info {
+            text-align: center;
+            opacity: 0.7;
+            transition: 0.3s;
+        }
+
+        .project-card:hover .project-info {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 50px;
+            text-align: center;
+            background: #000;
+            border-top: 1px solid #333;
+            width: 100%;
+        }
+
+        .social-icons a {
+            color: var(--text-white);
+            font-size: 1.5rem;
+            margin: 0 15px;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+
+        .social-icons a:hover {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px var(--neon-cyan);
+            transform: scale(1.2);
+            display: inline-block;
+        }
+
+        /* --- AUDIO PLAYER --- */
+        .audio-player {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--neon-cyan);
+            padding: 10px 20px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 1000;
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+        }
+
+        .play-btn {
+            background: none;
+            border: none;
+            color: var(--neon-cyan);
+            font-size: 1.2rem;
+            cursor: pointer;
+            outline: none;
+        }
+
+        input[type="range"] {
+            width: 80px;
+            accent-color: var(--neon-cyan);
+        }
+
+    </style>
+</head>
+<body>
+
+    <video autoplay muted loop id="bg-video">
+        <source src="background.mp4" type="video/mp4">
+    </video>
+    <div class="overlay"></div>
+
+    <audio id="bg-music" loop autoplay>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="audio-player">
+        <button id="play-pause-btn" class="play-btn"><i class="fas fa-play"></i></button>
+        <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="0.5">
+    </div>
+
+    <nav id="navbar">
+        <div class="logo">SKAI</div>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#notification">Thông Báo</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="home">
+        <div class="hero-text">
+            <h1>WELCOME TO MY WORLD</h1>
+            <div class="typewriter-container">
+                <span id="hero-typewriter" class="typewriter"></span><span class="cursor"></span>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2 class="section-title">About Me</h2>
+        <div style="text-align: center;">
+            <div class="skai-name">SKAI</div>
+            <br>
+            <span id="quote-typewriter" class="typewriter" style="font-size: 1.2rem; color: var(--text-gray);"></span><span class="cursor"></span>
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2 class="section-title">Skills & Arsenal</h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <div class="skill-name">Python</div>
+                <div>5 Tháng kinh nghiệm</div>
+                <div class="progress-bar"><div class="progress" style="width: 40%;"></div></div>
+            </div>
+            <div class="skill-card">
+                <div class="skill-name">C++</div>
+                <div>2 Tuần kinh nghiệm</div>
+                <div class="progress-bar"><div class="progress" style="width: 15%;"></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2 class="section-title">My Projects</h2>
+        <div class="project-grid">
+            <div class="project-card">
+                <div class="project-info">
+                    <i class="fas fa-robot fa-3x" style="color: var(--neon-cyan); margin-bottom: 10px;"></i>
+                    <h3>AI Auto Bot</h3>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-info">
+                    <i class="fas fa-code fa-3x" style="color: var(--neon-yellow); margin-bottom: 10px;"></i>
+                    <h3>Coming Soon</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="notification">
+        <h2 class="section-title">System Logs (Thông Báo)</h2>
+        <div class="log-entry">
+            <span class="date">Mục tiêu năm học</span>
+            <h3>Đạt danh hiệu Học sinh giỏi.</h3>
+            <p>Tập trung tối đa vào các môn văn hóa và tin học.</p>
+        </div>
+        <div class="log-entry">
+            <span class="date">Tiến độ học tập</span>
+            <h3>Đã học được Python và C++</h3>
+            <p>Đang tiếp tục nâng cao kỹ năng lập trình.</p>
+        </div>
+    </section>
+
+    <section id="contact" style="min-height: 50vh; justify-content: flex-end; padding-bottom: 0;">
+        <footer>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/tran.ngoc.hieu.945084/" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://discord.gg/GuuuWqZ4" target="_blank"><i class="fab fa-discord"></i></a>
+                <a href="https://www.youtube.com/channel/UCVXWU8QwqYAI1cWHehMTUpg" target="_blank"><i class="fab fa-youtube"></i></a>
+            </div>
+            <br>
+            <p>&copy; 2026 SKAI. All Systems Operational.</p>
+        </footer>
+    </section>
+
+    <script>
+        // --- CHẶN F12 VÀ CHUỘT PHẢI ---
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.onkeydown = function(e) {
+            if(e.keyCode == 123) { return false; } 
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { return false; } 
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) { return false; } 
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { return false; } 
+            if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { return false; } 
+        }
+
+        // --- NAVBAR SCROLL EFFECT ---
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // --- TYPEWRITER EFFECT ---
+        class TypeWriter {
+            constructor(txtElement, words, wait = 3000) {
+                this.txtElement = txtElement;
+                this.words = words;
+                this.txt = '';
+                this.wordIndex = 0;
+                this.wait = parseInt(wait, 10);
+                this.type();
+                this.isDeleting = false;
+            }
+
+            type() {
+                const current = this.wordIndex % this.words.length;
+                const fullTxt = this.words[current];
+
+                if(this.isDeleting) {
+                    this.txt = fullTxt.substring(0, this.txt.length - 1);
+                } else {
+                    this.txt = fullTxt.substring(0, this.txt.length + 1);
+                }
+
+                this.txtElement.innerHTML = `<span class="txt">${this.txt}</span>`;
+
+                let typeSpeed = 100;
+                if(this.isDeleting) { typeSpeed /= 2; }
+
+                if(!this.isDeleting && this.txt === fullTxt) {
+                    typeSpeed = this.wait;
+                    this.isDeleting = true;
+                } else if(this.isDeleting && this.txt === '') {
+                    this.isDeleting = false;
+                    this.wordIndex++;
+                    typeSpeed = 500;
+                }
+
+                setTimeout(() => this.type(), typeSpeed);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const heroEl = document.getElementById('hero-typewriter');
+            const heroWords = ["Xin chào, tôi là SKAI.", "I Build AI Solutions.", "Welcome to Cyberpunk World."];
+            new TypeWriter(heroEl, heroWords, 2000);
+
+            const quoteEl = document.getElementById('quote-typewriter');
+            const quoteWords = ["'Code is Poetry.'", "'Wake up, Samurai.'", "'Dream Big. Code Hard.'"];
+            new TypeWriter(quoteEl, quoteWords, 3000);
+        });
+
+        // --- AUDIO PLAYER & AUTO PLAY FIX ---
+        const music = document.getElementById('bg-music');
+        const playBtn = document.getElementById('play-pause-btn');
+        const icon = playBtn.querySelector('i');
+        const volumeSlider = document.getElementById('volume-slider');
+
+        music.volume = 0.5;
+
+        // CƠ CHẾ TỰ ĐỘNG PHÁT THÔNG MINH
+        // Nếu trình duyệt chặn, nó sẽ chờ bạn bấm 1 cái bất kỳ vào màn hình là nhạc nổi lên ngay.
+        function tryAutoPlay() {
+            const playPromise = music.play();
+            if (playPromise !== undefined) {
+                playPromise.then(_ => {
+                    // Thành công
+                    icon.classList.remove('fa-play');
+                    icon.classList.add('fa-pause');
+                    playBtn.style.color = "var(--neon-yellow)";
+                })
+                .catch(error => {
+                    // Bị chặn -> Chờ click đầu tiên
+                    document.addEventListener('click', function unlockAudio() {
+                        music.play();
+                        icon.classList.remove('fa-play');
+                        icon.classList.add('fa-pause');
+                        playBtn.style.color = "var(--neon-yellow)";
+                        document.removeEventListener('click', unlockAudio);
+                    }, { once: true });
+                });
+            }
+        }
+
+        window.addEventListener('load', tryAutoPlay);
+
+        playBtn.addEventListener('click', () => {
+            if (music.paused) {
+                music.play();
+                icon.classList.remove('fa-play');
+                icon.classList.add('fa-pause');
+                playBtn.style.color = "var(--neon-yellow)";
+            } else {
+                music.pause();
+                icon.classList.remove('fa-pause');
+                icon.classList.add('fa-play');
+                playBtn.style.color = "var(--neon-cyan)";
+            }
+        });
+
+        volumeSlider.addEventListener('input', (e) => {
+            music.volume = e.target.value;
+        });
+
+    </script>
+</body>
+</html>
